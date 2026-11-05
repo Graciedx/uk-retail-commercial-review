@@ -1,0 +1,5 @@
+y1_size_band,customers,y1_net_sales,net_change,gross_decline,customers_down_over_25pct
+1. Top 50,50,2428129.0,-238925.0,-621277.0,21
+2. Next 150,150,1387029.0,-379723.0,-518580.0,85
+3. Rest of top 20%,645,2113292.0,-484510.0,-814286.0,370
+4. Everyone else,3383,2200286.0,-486566.0,-1138839.0,2249

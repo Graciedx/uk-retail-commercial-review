@@ -1,0 +1,9 @@
+{
+  "version": "4.0",
+  "datasetReference": {
+    "byPath": {
+      "path": "../UK_Retail_Commercial_Review.SemanticModel"
+    },
+    "byConnection": null
+  }
+}

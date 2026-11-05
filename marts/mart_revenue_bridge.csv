@@ -1,0 +1,8 @@
+sort_order,step,value,customers
+1,"Y1 net sales, identified customers",8125253.0,
+2,Lost customers,-1034063.0,1529
+3,Existing customers spending less,-2058920.0,1588
+4,Existing customers spending more,1503258.0,1108
+5,New customers,1371934.0,1585
+6,Returns only or unchanged,1409.0,65
+7,"Y2 net sales, identified customers",7908871.0,

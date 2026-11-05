@@ -1,0 +1,4 @@
+trading_year,gross_sales,returns_value,net_sales,orders,identified_customers,avg_order_value,sales_no_customer_id,sales_with_customer_id,net_sales_with_customer_id,sales_sep_to_nov
+Dec 2011 (part month),447020.0,5657.0,441363.0,815,613,548.49,102260.0,344761.0,339119.0,
+Y1 (Dec09-Nov10),9428734.0,240932.0,9187802.0,19743,4239,477.57,1064875.0,8363860.0,8125253.0,3405332.0
+Y2 (Dec10-Nov11),9539391.0,227117.0,9312274.0,18955,4292,503.27,1407708.0,8131683.0,7908871.0,3594878.0

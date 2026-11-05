@@ -1,0 +1,3 @@
+group_name,customers,sales_prior_12m,sales_next_12m,change_pct,pct_no_purchase_next_12m
+Not flagged,802,5817252.0,4777015.0,-17.9,7.4
+Flagged overdue,46,295789.0,55000.0,-81.4,45.7

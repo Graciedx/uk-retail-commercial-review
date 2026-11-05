@@ -1,0 +1,7 @@
+step,item,n_rows,value
+1,"Raw rows, both sheets",1067371,19287250.57
+2,Less: rows repeated in both sheets,-22523,-377488.45
+3,Less: bad_debt_adjustment,-6,147614.08
+3,Less: non_product_code,-5987,-77263.7
+3,Less: zero_price_stock_movement,-5938,-0.0
+4,Clean: product sales and returns,1032917,18980112.5

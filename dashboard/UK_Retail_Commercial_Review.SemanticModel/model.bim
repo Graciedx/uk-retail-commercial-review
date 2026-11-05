@@ -1,0 +1,609 @@
+{
+ "compatibilityLevel": 1550,
+ "model": {
+  "culture": "en-GB",
+  "dataAccessOptions": {
+   "legacyRedirects": true,
+   "returnErrorValuesAsNull": true
+  },
+  "defaultPowerBIDataSourceVersion": "powerBI_V3",
+  "sourceQueryCulture": "en-GB",
+  "tables": [
+   {
+    "name": "mart_kpi_year",
+    "columns": [
+     {
+      "name": "trading_year",
+      "dataType": "string",
+      "sourceColumn": "trading_year",
+      "summarizeBy": "none"
+     },
+     {
+      "name": "gross_sales",
+      "dataType": "double",
+      "sourceColumn": "gross_sales",
+      "summarizeBy": "none"
+     },
+     {
+      "name": "returns_value",
+      "dataType": "double",
+      "sourceColumn": "returns_value",
+      "summarizeBy": "none"
+     },
+     {
+      "name": "net_sales",
+      "dataType": "double",
+      "sourceColumn": "net_sales",
+      "summarizeBy": "none"
+     },
+     {
+      "name": "orders",
+      "dataType": "int64",
+      "sourceColumn": "orders",
+      "summarizeBy": "none"
+     },
+     {
+      "name": "identified_customers",
+      "dataType": "int64",
+      "sourceColumn": "identified_customers",
+      "summarizeBy": "none"
+     },
+     {
+      "name": "avg_order_value",
+      "dataType": "double",
+      "sourceColumn": "avg_order_value",
+      "summarizeBy": "none"
+     },
+     {
+      "name": "sales_no_customer_id",
+      "dataType": "double",
+      "sourceColumn": "sales_no_customer_id",
+      "summarizeBy": "none"
+     },
+     {
+      "name": "sales_with_customer_id",
+      "dataType": "double",
+      "sourceColumn": "sales_with_customer_id",
+      "summarizeBy": "none"
+     },
+     {
+      "name": "net_sales_with_customer_id",
+      "dataType": "double",
+      "sourceColumn": "net_sales_with_customer_id",
+      "summarizeBy": "none"
+     },
+     {
+      "name": "sales_sep_to_nov",
+      "dataType": "double",
+      "sourceColumn": "sales_sep_to_nov",
+      "summarizeBy": "none"
+     }
+    ],
+    "partitions": [
+     {
+      "name": "mart_kpi_year",
+      "mode": "import",
+      "source": {
+       "type": "m",
+       "expression": [
+        "let",
+        "    Source = Csv.Document(File.Contents(DataFolder & \"mart_kpi_year.csv\"),[Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+        "    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+        "    Typed = Table.TransformColumnTypes(Promoted, {{\"trading_year\", type text}, {\"gross_sales\", type number}, {\"returns_value\", type number}, {\"net_sales\", type number}, {\"orders\", Int64.Type}, {\"identified_customers\", Int64.Type}, {\"avg_order_value\", type number}, {\"sales_no_customer_id\", type number}, {\"sales_with_customer_id\", type number}, {\"net_sales_with_customer_id\", type number}, {\"sales_sep_to_nov\", type number}}, \"en-GB\")",
+        "in",
+        "    Typed"
+       ]
+      }
+     }
+    ],
+    "measures": [
+     {
+      "name": "Net sales Y2",
+      "expression": "CALCULATE(SUM(mart_kpi_year[net_sales]),mart_kpi_year[trading_year]=\"Y2 (Dec10-Nov11)\")/1000000",
+      "formatString": "\u00a30.00\"m\""
+     },
+     {
+      "name": "Net sales growth",
+      "expression": "DIVIDE(CALCULATE(SUM(mart_kpi_year[net_sales]),mart_kpi_year[trading_year]=\"Y2 (Dec10-Nov11)\"),CALCULATE(SUM(mart_kpi_year[net_sales]),mart_kpi_year[trading_year]=\"Y1 (Dec09-Nov10)\"))-1",
+      "formatString": "+0.0%;-0.0%"
+     },
+     {
+      "name": "Identified customer sales change",
+      "expression": "DIVIDE(CALCULATE(SUM(mart_kpi_year[net_sales_with_customer_id]),mart_kpi_year[trading_year]=\"Y2 (Dec10-Nov11)\"),CALCULATE(SUM(mart_kpi_year[net_sales_with_customer_id]),mart_kpi_year[trading_year]=\"Y1 (Dec09-Nov10)\"))-1",
+      "formatString": "+0.0%;-0.0%"
+     },
+     {
+      "name": "Share of sales with no customer ID",
+      "expression": "DIVIDE(CALCULATE(SUM(mart_kpi_year[sales_no_customer_id]),mart_kpi_year[trading_year]=\"Y2 (Dec10-Nov11)\"),CALCULATE(SUM(mart_kpi_year[gross_sales]),mart_kpi_year[trading_year]=\"Y2 (Dec10-Nov11)\"))",
+      "formatString": "0.0%"
+     },
+     {
+      "name": "Return rate Y2",
+      "expression": "DIVIDE(CALCULATE(SUM(mart_kpi_year[returns_value]),mart_kpi_year[trading_year]=\"Y2 (Dec10-Nov11)\"),CALCULATE(SUM(mart_kpi_year[gross_sales]),mart_kpi_year[trading_year]=\"Y2 (Dec10-Nov11)\"))",
+      "formatString": "0.0%"
+     },
+     {
+      "name": "Sep to Nov share of sales",
+      "expression": "DIVIDE(CALCULATE(SUM(mart_kpi_year[sales_sep_to_nov]),mart_kpi_year[trading_year]=\"Y2 (Dec10-Nov11)\"),CALCULATE(SUM(mart_kpi_year[gross_sales]),mart_kpi_year[trading_year]=\"Y2 (Dec10-Nov11)\"))",
+      "formatString": "0.0%"
+     }
+    ]
+   },
+   {
+    "name": "mart_monthly",
+    "columns": [
+     {
+      "name": "order_month",
+      "dataType": "string",
+      "sourceColumn": "order_month",
+      "summarizeBy": "none"
+     },
+     {
+      "name": "trading_year",
+      "dataType": "string",
+      "sourceColumn": "trading_year",
+      "summarizeBy": "none"
+     },
+     {
+      "name": "month_label",
+      "dataType": "string",
+      "sourceColumn": "month_label",
+      "summarizeBy": "none",
+      "sortByColumn": "month_index"
+     },
+     {
+      "name": "month_index",
+      "dataType": "int64",
+      "sourceColumn": "month_index",
+      "summarizeBy": "none"
+     },
+     {
+      "name": "gross_sales",
+      "dataType": "double",
+      "sourceColumn": "gross_sales",
+      "summarizeBy": "none"
+     },
+     {
+      "name": "returns_value",
+      "dataType": "double",
+      "sourceColumn": "returns_value",
+      "summarizeBy": "none"
+     },
+     {
+      "name": "net_sales",
+      "dataType": "double",
+      "sourceColumn": "net_sales",
+      "summarizeBy": "none"
+     },
+     {
+      "name": "orders",
+      "dataType": "int64",
+      "sourceColumn": "orders",
+      "summarizeBy": "none"
+     },
+     {
+      "name": "active_customers",
+      "dataType": "int64",
+      "sourceColumn": "active_customers",
+      "summarizeBy": "none"
+     }
+    ],
+    "partitions": [
+     {
+      "name": "mart_monthly",
+      "mode": "import",
+      "source": {
+       "type": "m",
+       "expression": [
+        "let",
+        "    Source = Csv.Document(File.Contents(DataFolder & \"mart_monthly.csv\"),[Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+        "    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+        "    Typed = Table.TransformColumnTypes(Promoted, {{\"order_month\", type text}, {\"trading_year\", type text}, {\"month_label\", type text}, {\"month_index\", Int64.Type}, {\"gross_sales\", type number}, {\"returns_value\", type number}, {\"net_sales\", type number}, {\"orders\", Int64.Type}, {\"active_customers\", Int64.Type}}, \"en-GB\")",
+        "in",
+        "    Typed"
+       ]
+      }
+     }
+    ]
+   },
+   {
+    "name": "mart_bridge_chart",
+    "columns": [
+     {
+      "name": "sort_order",
+      "dataType": "int64",
+      "sourceColumn": "sort_order",
+      "summarizeBy": "none"
+     },
+     {
+      "name": "step",
+      "dataType": "string",
+      "sourceColumn": "step",
+      "summarizeBy": "none",
+      "sortByColumn": "sort_order"
+     },
+     {
+      "name": "value",
+      "dataType": "double",
+      "sourceColumn": "value",
+      "summarizeBy": "none"
+     }
+    ],
+    "partitions": [
+     {
+      "name": "mart_bridge_chart",
+      "mode": "import",
+      "source": {
+       "type": "m",
+       "expression": [
+        "let",
+        "    Source = Csv.Document(File.Contents(DataFolder & \"mart_bridge_chart.csv\"),[Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+        "    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+        "    Typed = Table.TransformColumnTypes(Promoted, {{\"sort_order\", Int64.Type}, {\"step\", type text}, {\"value\", type number}}, \"en-GB\")",
+        "in",
+        "    Typed"
+       ]
+      }
+     }
+    ]
+   },
+   {
+    "name": "mart_concentration",
+    "columns": [
+     {
+      "name": "band",
+      "dataType": "string",
+      "sourceColumn": "band",
+      "summarizeBy": "none",
+      "sortByColumn": "customers"
+     },
+     {
+      "name": "customers",
+      "dataType": "int64",
+      "sourceColumn": "customers",
+      "summarizeBy": "none"
+     },
+     {
+      "name": "y2_net_sales",
+      "dataType": "double",
+      "sourceColumn": "y2_net_sales",
+      "summarizeBy": "none"
+     },
+     {
+      "name": "share_pct",
+      "dataType": "double",
+      "sourceColumn": "share_pct",
+      "summarizeBy": "none"
+     }
+    ],
+    "partitions": [
+     {
+      "name": "mart_concentration",
+      "mode": "import",
+      "source": {
+       "type": "m",
+       "expression": [
+        "let",
+        "    Source = Csv.Document(File.Contents(DataFolder & \"mart_concentration.csv\"),[Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+        "    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+        "    Typed = Table.TransformColumnTypes(Promoted, {{\"band\", type text}, {\"customers\", Int64.Type}, {\"y2_net_sales\", type number}, {\"share_pct\", type number}}, \"en-GB\")",
+        "in",
+        "    Typed"
+       ]
+      }
+     }
+    ]
+   },
+   {
+    "name": "mart_decline_by_size",
+    "columns": [
+     {
+      "name": "y1_size_band",
+      "dataType": "string",
+      "sourceColumn": "y1_size_band",
+      "summarizeBy": "none"
+     },
+     {
+      "name": "customers",
+      "dataType": "int64",
+      "sourceColumn": "customers",
+      "summarizeBy": "none"
+     },
+     {
+      "name": "y1_net_sales",
+      "dataType": "double",
+      "sourceColumn": "y1_net_sales",
+      "summarizeBy": "none"
+     },
+     {
+      "name": "net_change",
+      "dataType": "double",
+      "sourceColumn": "net_change",
+      "summarizeBy": "none"
+     },
+     {
+      "name": "gross_decline",
+      "dataType": "double",
+      "sourceColumn": "gross_decline",
+      "summarizeBy": "none"
+     },
+     {
+      "name": "customers_down_over_25pct",
+      "dataType": "int64",
+      "sourceColumn": "customers_down_over_25pct",
+      "summarizeBy": "none"
+     }
+    ],
+    "partitions": [
+     {
+      "name": "mart_decline_by_size",
+      "mode": "import",
+      "source": {
+       "type": "m",
+       "expression": [
+        "let",
+        "    Source = Csv.Document(File.Contents(DataFolder & \"mart_decline_by_size.csv\"),[Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+        "    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+        "    Typed = Table.TransformColumnTypes(Promoted, {{\"y1_size_band\", type text}, {\"customers\", Int64.Type}, {\"y1_net_sales\", type number}, {\"net_change\", type number}, {\"gross_decline\", type number}, {\"customers_down_over_25pct\", Int64.Type}}, \"en-GB\")",
+        "in",
+        "    Typed"
+       ]
+      }
+     }
+    ]
+   },
+   {
+    "name": "mart_segments",
+    "columns": [
+     {
+      "name": "segment",
+      "dataType": "string",
+      "sourceColumn": "segment",
+      "summarizeBy": "none"
+     },
+     {
+      "name": "customers",
+      "dataType": "int64",
+      "sourceColumn": "customers",
+      "summarizeBy": "none"
+     },
+     {
+      "name": "sales_last_12m",
+      "dataType": "double",
+      "sourceColumn": "sales_last_12m",
+      "summarizeBy": "none"
+     },
+     {
+      "name": "median_days_since_order",
+      "dataType": "double",
+      "sourceColumn": "median_days_since_order",
+      "summarizeBy": "none"
+     }
+    ],
+    "partitions": [
+     {
+      "name": "mart_segments",
+      "mode": "import",
+      "source": {
+       "type": "m",
+       "expression": [
+        "let",
+        "    Source = Csv.Document(File.Contents(DataFolder & \"mart_segments.csv\"),[Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+        "    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+        "    Typed = Table.TransformColumnTypes(Promoted, {{\"segment\", type text}, {\"customers\", Int64.Type}, {\"sales_last_12m\", type number}, {\"median_days_since_order\", type number}}, \"en-GB\")",
+        "in",
+        "    Typed"
+       ]
+      }
+     }
+    ]
+   },
+   {
+    "name": "mart_customers",
+    "columns": [
+     {
+      "name": "customer_id",
+      "dataType": "int64",
+      "sourceColumn": "customer_id",
+      "summarizeBy": "none"
+     },
+     {
+      "name": "country",
+      "dataType": "string",
+      "sourceColumn": "country",
+      "summarizeBy": "none"
+     },
+     {
+      "name": "orders_to_date",
+      "dataType": "int64",
+      "sourceColumn": "orders_to_date",
+      "summarizeBy": "none"
+     },
+     {
+      "name": "first_order",
+      "dataType": "string",
+      "sourceColumn": "first_order",
+      "summarizeBy": "none"
+     },
+     {
+      "name": "last_order",
+      "dataType": "string",
+      "sourceColumn": "last_order",
+      "summarizeBy": "none"
+     },
+     {
+      "name": "days_since_last_order",
+      "dataType": "int64",
+      "sourceColumn": "days_since_last_order",
+      "summarizeBy": "none"
+     },
+     {
+      "name": "usual_gap_days",
+      "dataType": "double",
+      "sourceColumn": "usual_gap_days",
+      "summarizeBy": "none"
+     },
+     {
+      "name": "sales_last_12m",
+      "dataType": "double",
+      "sourceColumn": "sales_last_12m",
+      "summarizeBy": "none"
+     },
+     {
+      "name": "value_decile",
+      "dataType": "int64",
+      "sourceColumn": "value_decile",
+      "summarizeBy": "none"
+     },
+     {
+      "name": "is_overdue",
+      "dataType": "string",
+      "sourceColumn": "is_overdue",
+      "summarizeBy": "none"
+     },
+     {
+      "name": "segment",
+      "dataType": "string",
+      "sourceColumn": "segment",
+      "summarizeBy": "none"
+     }
+    ],
+    "partitions": [
+     {
+      "name": "mart_customers",
+      "mode": "import",
+      "source": {
+       "type": "m",
+       "expression": [
+        "let",
+        "    Source = Csv.Document(File.Contents(DataFolder & \"mart_customers.csv\"),[Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+        "    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+        "    Typed = Table.TransformColumnTypes(Promoted, {{\"customer_id\", Int64.Type}, {\"country\", type text}, {\"orders_to_date\", Int64.Type}, {\"first_order\", type text}, {\"last_order\", type text}, {\"days_since_last_order\", Int64.Type}, {\"usual_gap_days\", type number}, {\"sales_last_12m\", type number}, {\"value_decile\", Int64.Type}, {\"is_overdue\", type text}, {\"segment\", type text}}, \"en-GB\")",
+        "in",
+        "    Typed"
+       ]
+      }
+     }
+    ]
+   },
+   {
+    "name": "mart_products",
+    "columns": [
+     {
+      "name": "stock_code",
+      "dataType": "string",
+      "sourceColumn": "stock_code",
+      "summarizeBy": "none"
+     },
+     {
+      "name": "description",
+      "dataType": "string",
+      "sourceColumn": "description",
+      "summarizeBy": "none"
+     },
+     {
+      "name": "y2_gross_sales",
+      "dataType": "double",
+      "sourceColumn": "y2_gross_sales",
+      "summarizeBy": "none"
+     },
+     {
+      "name": "y2_returns",
+      "dataType": "double",
+      "sourceColumn": "y2_returns",
+      "summarizeBy": "none"
+     },
+     {
+      "name": "y2_units",
+      "dataType": "int64",
+      "sourceColumn": "y2_units",
+      "summarizeBy": "none"
+     },
+     {
+      "name": "y2_return_rate_pct",
+      "dataType": "double",
+      "sourceColumn": "y2_return_rate_pct",
+      "summarizeBy": "none"
+     }
+    ],
+    "partitions": [
+     {
+      "name": "mart_products",
+      "mode": "import",
+      "source": {
+       "type": "m",
+       "expression": [
+        "let",
+        "    Source = Csv.Document(File.Contents(DataFolder & \"mart_products.csv\"),[Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+        "    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+        "    Typed = Table.TransformColumnTypes(Promoted, {{\"stock_code\", type text}, {\"description\", type text}, {\"y2_gross_sales\", type number}, {\"y2_returns\", type number}, {\"y2_units\", Int64.Type}, {\"y2_return_rate_pct\", type number}}, \"en-GB\")",
+        "in",
+        "    Typed"
+       ]
+      }
+     }
+    ]
+   },
+   {
+    "name": "mart_country",
+    "columns": [
+     {
+      "name": "country",
+      "dataType": "string",
+      "sourceColumn": "country",
+      "summarizeBy": "none"
+     },
+     {
+      "name": "y1_net_sales",
+      "dataType": "double",
+      "sourceColumn": "y1_net_sales",
+      "summarizeBy": "none"
+     },
+     {
+      "name": "y2_net_sales",
+      "dataType": "double",
+      "sourceColumn": "y2_net_sales",
+      "summarizeBy": "none"
+     },
+     {
+      "name": "identified_customers",
+      "dataType": "int64",
+      "sourceColumn": "identified_customers",
+      "summarizeBy": "none"
+     }
+    ],
+    "partitions": [
+     {
+      "name": "mart_country",
+      "mode": "import",
+      "source": {
+       "type": "m",
+       "expression": [
+        "let",
+        "    Source = Csv.Document(File.Contents(DataFolder & \"mart_country.csv\"),[Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+        "    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+        "    Typed = Table.TransformColumnTypes(Promoted, {{\"country\", type text}, {\"y1_net_sales\", type number}, {\"y2_net_sales\", type number}, {\"identified_customers\", Int64.Type}}, \"en-GB\")",
+        "in",
+        "    Typed"
+       ]
+      }
+     }
+    ]
+   }
+  ],
+  "relationships": [],
+  "expressions": [
+   {
+    "name": "DataFolder",
+    "kind": "m",
+    "expression": "\"C:\\Users\\Laptop\\Downloads\\portfolio-projects\\uk-retail\\marts\\\" meta [IsParameterQuery=true, Type=\"Text\", IsParameterQueryRequired=true]"
+   }
+  ],
+  "annotations": [
+   {
+    "name": "PBI_ProTooling",
+    "value": "[\"DevMode\"]"
+   }
+  ]
+ }
+}

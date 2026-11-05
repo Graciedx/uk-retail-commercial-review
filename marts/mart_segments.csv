@@ -1,0 +1,7 @@
+segment,customers,sales_last_12m,median_days_since_order
+High value active,1107,6315613.0,18.0
+Lower value active,2482,1274789.0,67.0
+One-time buyer,1630,236268.0,377.0
+Key account at risk,27,126062.0,130.0
+Lower value lapsed,546,119819.0,371.0
+High value at risk,32,59132.0,166.0

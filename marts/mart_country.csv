@@ -1,0 +1,44 @@
+country,y1_net_sales,y2_net_sales,identified_customers
+United Kingdom,7918612.0,7863337.0,5357
+Netherlands,262618.0,271752.0,22
+EIRE,343744.0,252540.0,3
+Germany,174324.0,193964.0,107
+France,111463.0,175772.0,93
+Australia,29360.0,136990.0,15
+Switzerland,40435.0,52505.0,22
+Spain,33098.0,51522.0,38
+Japan,4327.0,35537.0,10
+Belgium,19955.0,35383.0,29
+Sweden,49202.0,35177.0,19
+Norway,6121.0,29547.0,12
+Portugal,19905.0,24462.0,23
+Channel Islands,21915.0,19742.0,13
+Denmark,45313.0,17891.0,12
+Finland,6786.0,17233.0,13
+Italy,12965.0,15076.0,17
+Cyprus,11186.0,13023.0,11
+Hong Kong,3922.0,9942.0,0
+Singapore,4038.0,9120.0,1
+Austria,11373.0,8175.0,13
+Israel,3199.0,7908.0,4
+Poland,2987.0,6853.0,6
+Unspecified,6164.0,4750.0,6
+Iceland,612.0,4085.0,1
+Greece,14235.0,3880.0,5
+Canada,1217.0,3115.0,5
+Malta,2687.0,2011.0,2
+United Arab Emirates,7763.0,1865.0,4
+Lebanon,212.0,1694.0,1
+Lithuania,3232.0,1661.0,1
+European Community,,1151.0,1
+Brazil,268.0,1144.0,2
+USA,4109.0,1116.0,8
+RSA,2367.0,1002.0,2
+Czech Republic,,672.0,1
+Bahrain,2313.0,548.0,2
+Saudi Arabia,,131.0,1
+West Indies,536.0,,1
+Thailand,3071.0,,1
+Nigeria,-34.0,,1
+Korea,950.0,,2
+Bermuda,1253.0,,0
