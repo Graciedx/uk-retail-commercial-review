@@ -1,11 +1,13 @@
-# UK Online Retail: Commercial Review (SQL and Power BI)
+# UK Online Retail: Commercial Review (SQL)
 
 **The question:** sales went up 1.4%, so is the business healthy?
 
 **The answer:** not as healthy as the headline. All of the growth came from orders with no customer ID. Sales to known customers fell 2.7%, and £3.1m of last year's revenue was lost or shrinking, replaced by £2.9m from other customers.
 
-Built with SQL (DuckDB) and Power BI on 1.07m real transaction rows from a UK online gift wholesaler, Dec 2009 to Dec 2011.
+Built with SQL (DuckDB) on 1.07m real transaction rows from a UK online gift wholesaler, Dec 2009 to Dec 2011.
 
+
+**Status:** the SQL analysis is complete. A Power BI dashboard is in progress, and its working files are in `dashboard/`.
 
 ## What I found
 
@@ -22,7 +24,7 @@ Y1 is Dec 2009 to Nov 2010. Y2 is Dec 2010 to Nov 2011.
 
 ## What I recommend
 
-1. **Give the top 200 accounts named owners.** They were 47% of known Y1 sales. Start with the call list on page 2 of the dashboard, which flags 59 high-value accounts that are overdue.
+1. **Give the top 200 accounts named owners.** They were 47% of known Y1 sales. Start with the customer table in `marts/mart_customers.csv`, which flags 59 high-value accounts that are overdue.
 2. **Capture a customer ID on every order.** £1.41m, 15% of Y2 sales, cannot be tied to a customer, so nobody can tell whether it is repeat business.
 3. **Run a 90-day second-order programme.** Raising the 90-day reorder rate from 39% to 45% would add about 100 repeat customers a year. At the median spend gap of £973 that is worth up to about £100k. This is an upper estimate, because keener buyers may simply reorder more.
 4. **Leave returns alone for now.** Handle them as product fixes, not as a business programme.
@@ -69,9 +71,9 @@ Other decisions:
 ```text
 sql/01_clean.sql             Removes overlap, labels every row, builds the reconciliation
 sql/02_customer_tables.sql   Removes reversed bulk orders, builds customer tables
-sql/03_analysis.sql          One mart table per business question
-marts/                       Query outputs used by Power BI
-dashboard/                   Power BI project, open the .pbip in Power BI Desktop
+sql/03_analysis.sql          one mart table per business question
+marts/                       Query outputs
+dashboard/                   Power BI work in progress
 run_all.py                   Rebuilds everything from the raw file
 ```
 
@@ -81,6 +83,5 @@ run_all.py                   Rebuilds everything from the raw file
 2. Run `pip install duckdb pandas openpyxl`.
 3. Run `python run_all.py`.
 
-To refresh the dashboard, set the `DataFolder` parameter in Power BI to your `marts` folder.
 
 Dataset: Chen, D. (2019). Online Retail II. UCI Machine Learning Repository. CC BY 4.0.
