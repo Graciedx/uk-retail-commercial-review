@@ -77,11 +77,5 @@ dashboard/                   Power BI work in progress
 run_all.py                   Rebuilds everything from the raw file
 ```
 
-## Run it
-
-1. Download `online_retail_II.xlsx` from the [UCI Machine Learning Repository](https://archive.ics.uci.edu/dataset/502/online+retail+ii) into `data/`.
-2. Run `pip install duckdb pandas openpyxl`.
-3. Run `python run_all.py`.
-
 
 Dataset: Chen, D. (2019). Online Retail II. UCI Machine Learning Repository. CC BY 4.0.
